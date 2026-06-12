@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Contact — Florin Gabriel Popa</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .contact-wrap {
+      min-height: calc(100vh - 56px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 60px;
+    }
+
+    .contact-heading {
+      font-family: var(--display);
+      font-size: clamp(30px, 6vw, 72px);
+      letter-spacing: 6px;
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--green-dim);
+      margin-bottom: 12px;
+      transition: -webkit-text-stroke-color .4s;
+      line-height: 1.1;
+    }
+    .contact-heading:hover { -webkit-text-stroke-color: var(--green); }
+
+    .contact-sub {
+      font-family: var(--mono);
+      font-size: .72rem;
+      letter-spacing: 3px;
+      color: var(--text-dim);
+      margin-bottom: 64px;
+    }
+
+    /* Cards */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-bottom: 64px;
+    }
+
+    .contact-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 28px 28px 24px;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .3s, box-shadow .3s;
+    }
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--green);
+      transition: width .4s ease;
+    }
+    .contact-card:hover { border-color: var(--green-dim); box-shadow: 0 0 22px var(--green-glow2); }
+    .contact-card:hover::before { width: 100%; }
+
+    .cc-label {
+      font-family: var(--mono);
+      font-size: .6rem;
+      letter-spacing: 3px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+    .cc-val {
+      font-family: var(--mono);
+      font-size: .82rem;
+      color: var(--text-muted);
+      transition: color .3s;
+      word-break: break-all;
+    }
+    .contact-card:hover .cc-val { color: var(--green); }
+
+    .cc-arrow {
+      margin-top: auto;
+      font-family: var(--mono);
+      font-size: .7rem;
+      color: var(--text-dim);
+      transition: color .3s, transform .3s;
+      display: inline-block;
+      width: fit-content;
+    }
+    .contact-card:hover .cc-arrow { color: var(--green); transform: translateX(6px); }
+
+    /* Terminal form */
+    .contact-form-wrap {
+      background: var(--card);
+      border: 1px solid var(--border-lit);
+      box-shadow: 0 0 30px var(--green-glow2);
+      max-width: 680px;
+    }
+
+    .form-terminal-bar {
+      padding: 9px 14px;
+      background: var(--bg3);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    .form-body { padding: 28px 28px 24px; }
+
+    .form-row { margin-bottom: 20px; }
+
+    .form-label {
+      font-family: var(--mono);
+      font-size: .65rem;
+      letter-spacing: 2px;
+      color: var(--green);
+      display: block;
+      margin-bottom: 7px;
+    }
+    .form-label::before { content: '> '; color: var(--text-dim); }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: .8rem;
+      letter-spacing: 1px;
+      padding: 10px 14px;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+      resize: none;
+    }
+    .form-input:focus,
+    .form-textarea:focus {
+      border-color: var(--green-dim);
+      box-shadow: 0 0 10px var(--green-glow2);
+    }
+    .form-textarea { height: 110px; }
+
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .form-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .form-hint {
+      font-family: var(--mono);
+      font-size: .6rem;
+      letter-spacing: 2px;
+      color: var(--text-dim);
+    }
+
+    #send-feedback {
+      font-family: var(--mono);
+      font-size: .65rem;
+      letter-spacing: 2px;
+      color: var(--green);
+      display: none;
+    }
+
+    @media(max-width: 900px) {
+      .contact-wrap { padding: 70px 24px; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .form-row-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <nav>
+    <a href="index.html" class="nav-logo">FGP<span class="slash">/</span>DEV</a>
+    <ul class="nav-links">
+      <li><a href="index.html">accueil</a></li>
+      <li><a href="experience.html">expérience</a></li>
+      <li><a href="skills.html">skills</a></li>
+      <li><a href="projects.html">projets</a></li>
+      <li><a href="contact.html" class="active">contact</a></li>
+    </ul>
+    <div class="nav-status"><div class="status-dot"></div>DISPONIBLE</div>
+  </nav>
+
+  <div class="contact-wrap">
+
+    <div class="section-header reveal">
+      <span class="section-num">[ 05 ]</span>
+      <h2 class="section-title">CONTACT</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <p class="contact-heading reveal">TRAVAILLONS<br>ENSEMBLE</p>
+    <p class="contact-sub reveal">INIT_CONNECTION<span class="blink">_</span></p>
+
+    <!-- Liens directs -->
+    <div class="contact-grid reveal">
+
+      <a href="mailto:gabriel.popapro94@gmail.com" class="contact-card">
+        <span class="cc-label">// EMAIL</span>
+        <span class="cc-val">gabriel.popapro94@gmail.com</span>
+        <span class="cc-arrow">→ Envoyer un mail</span>
+      </a>
+
+      <a href="https://github.com/xelecx" target="_blank" class="contact-card">
+        <span class="cc-label">// GITHUB</span>
+        <span class="cc-val">github.com/xelecx</span>
+        <span class="cc-arrow">→ Voir le profil</span>
+      </a>
+
+      <a href="https://xelecx.github.io/" target="_blank" class="contact-card">
+        <span class="cc-label">// SITE</span>
+        <span class="cc-val">xelecx.github.io</span>
+        <span class="cc-arrow">→ Visiter</span>
+      </a>
+
+    </div>
+
+    <!-- Formulaire terminal -->
+    <div class="contact-form-wrap reveal">
+      <div class="form-terminal-bar">
+        <div class="t-dot t-dot-r"></div>
+        <div class="t-dot t-dot-y"></div>
+        <div class="t-dot t-dot-g"></div>
+        <span class="terminal-title">send_message.sh</span>
+      </div>
+      <div class="form-body">
+        <div class="form-row-2">
+          <div class="form-row">
+            <label class="form-label" for="fname">nom</label>
+            <input class="form-input" id="fname" type="text" placeholder="Ton nom" autocomplete="off"/>
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="femail">email</label>
+            <input class="form-input" id="femail" type="email" placeholder="ton@email.com" autocomplete="off"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="fsubject">sujet</label>
+          <input class="form-input" id="fsubject" type="text" placeholder="Objet du message" autocomplete="off"/>
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="fmessage">message</label>
+          <textarea class="form-textarea" id="fmessage" placeholder="Ton message..."></textarea>
+        </div>
+        <div class="form-footer">
+          <span class="form-hint">Le formulaire ouvre ton client mail.</span>
+          <div style="display:flex;align-items:center;gap:16px;">
+            <span id="send-feedback">✓ ENVOI...</span>
+            <button class="btn-primary" onclick="sendForm()">./envoyer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p class="footer-txt">© 2025–2026 <span>Florin Gabriel Popa</span></p>
+    <p class="footer-txt">BTS SIO SLAM · <span>H3 HITEMA</span></p>
+  </footer>
+
+</div>
+<script>
+  // Reveal
+  const obs = new IntersectionObserver(e => e.forEach(x => {
+    if (x.isIntersecting) { x.target.classList.add('visible'); obs.unobserve(x.target); }
+  }), { threshold: .08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Form → mailto
+  function sendForm() {
+    const name    = document.getElementById('fname').value.trim();
+    const email   = document.getElementById('femail').value.trim();
+    const subject = document.getElementById('fsubject').value.trim() || 'Contact Portfolio';
+    const message = document.getElementById('fmessage').value.trim();
+
+    if (!message) { alert('Écris un message d\'abord !'); return; }
+
+    const body = encodeURIComponent(
+      (name  ? 'De : ' + name  + '\n' : '') +
+      (email ? 'Email : ' + email + '\n\n' : '\n') +
+      message
+    );
+    const sub = encodeURIComponent(subject);
+
+    const fb = document.getElementById('send-feedback');
+    fb.style.display = 'inline';
+    setTimeout(() => { fb.style.display = 'none'; }, 3000);
+
+    window.location.href = `mailto:gabriel.popapro94@gmail.com?subject=${sub}&body=${body}`;
+  }
+</script>
+</body>
+</html>

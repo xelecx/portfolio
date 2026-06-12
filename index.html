@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FPS Shooter</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+ 
+<!-- ── CANVAS ──────────────────────────── -->
+<canvas id="canvas"></canvas>
+ 
+<!-- ── CROSSHAIR ────────────────────────── -->
+<div id="crosshair"><div class="dot"></div></div>
+ 
+<!-- ── HUD TOP ───────────────────────────── -->
+<div id="hud">
+  <div class="hud-block">
+    <div class="hud-label">Score</div>
+    <div class="hud-value" id="score-val">0</div>
+  </div>
+  <div class="hud-block">
+    <div class="hud-label">Cibles</div>
+    <div class="hud-value" id="hits-val">0</div>
+  </div>
+  <div class="hud-block" style="text-align:center">
+    <div class="hud-label">Temps</div>
+    <div class="hud-value" id="timer-val">60</div>
+  </div>
+  <div class="hud-block" style="text-align:right">
+    <div class="hud-label">Munitions</div>
+    <div class="hud-value" id="ammo-val">30 / 90</div>
+  </div>
+</div>
+ 
+<!-- ── HUD BOTTOM ───────────────────────── -->
+<div id="hud-bottom">
+  <div id="accuracy">PRÉCISION — <span id="acc-val">—</span></div>
+</div>
+ 
+<!-- ── FPS COUNTER ──────────────────────── -->
+<div id="fps-counter" style="
+  position:fixed; top:8px; left:50%; transform:translateX(-50%);
+  font-size:11px; color:rgba(255,255,255,0.35); letter-spacing:2px;
+  pointer-events:none; z-index:10; display:none;
+"></div>
+ 
+<!-- ── KILL FEED ────────────────────────── -->
+<div id="killfeed"></div>
+ 
+<!-- ── HIT MARKER ───────────────────────── -->
+<div id="hitmarker">
+  <svg width="28" height="28" viewBox="0 0 28 28">
+    <line x1="0"  y1="0"  x2="8"  y2="8"/>
+    <line x1="20" y1="0"  x2="28" y2="8"/>
+    <line x1="0"  y1="28" x2="8"  y2="20"/>
+    <line x1="20" y1="28" x2="28" y2="20"/>
+  </svg>
+</div>
+ 
+<!-- ── DAMAGE FLASH ──────────────────────── -->
+<div id="flash"></div>
+ 
+<!-- ── RELOAD BAR ───────────────────────── -->
+<div id="reload-bar-wrap">
+  <div class="label">RECHARGEMENT</div>
+  <div id="reload-bar-bg"><div id="reload-bar-fill"></div></div>
+</div>
+ 
+<!-- ════════════════════════════════════════
+     MAIN MENU
+════════════════════════════════════════ -->
+<div id="menu-overlay" class="overlay active">
+  <!-- Effets décoratifs -->
+  <div class="menu-scanlines"></div>
+  <div class="menu-corner tl"></div>
+  <div class="menu-corner tr"></div>
+  <div class="menu-corner bl"></div>
+  <div class="menu-corner br"></div>
+ 
+  <div class="menu-logo">
+    <h1>FPS</h1>
+    <div class="tagline">SHOOTER — TARGET RANGE</div>
+  </div>
+ 
+  <div class="menu-buttons">
+    <button class="btn-primary"    onclick="startGame()">JOUER</button>
+    <button class="btn-secondary"  onclick="openSettings(false)">PARAMÈTRES</button>
+  </div>
+ 
+  <div id="controls-hint">
+    CLIC GAUCHE — Tirer &nbsp;|&nbsp; R — Recharger &nbsp;|&nbsp; SOURIS — Viser &nbsp;|&nbsp; ÉCHAP — Pause
+  </div>
+  <div class="menu-version">v1.0</div>
+</div>
+ 
+<!-- ════════════════════════════════════════
+     SETTINGS
+════════════════════════════════════════ -->
+<div id="settings-overlay" class="overlay">
+  <div class="settings-panel">
+    <div class="settings-title">⚙ Paramètres</div>
+ 
+    <!-- GAMEPLAY -->
+    <div class="settings-section">
+      <div class="settings-section-label">Gameplay</div>
+ 
+      <div class="setting-row">
+        <div>
+          <div class="setting-name">Difficulté</div>
+          <div class="setting-desc">Vitesse des cibles</div>
+        </div>
+        <select class="setting-select" id="difficulty-select">
+          <option value="easy">FACILE</option>
+          <option value="normal" selected>NORMAL</option>
+          <option value="hard">DIFFICILE</option>
+        </select>
+      </div>
+ 
+      <div class="setting-row">
+        <div>
+          <div class="setting-name">Rechargement auto</div>
+          <div class="setting-desc">Se recharge quand le chargeur est vide</div>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="autoreload-toggle" checked />
+          <div class="toggle-track"></div>
+          <div class="toggle-thumb"></div>
+        </label>
+      </div>
+    </div>
+ 
+    <!-- CONTRÔLES -->
+    <div class="settings-section">
+      <div class="settings-section-label">Contrôles</div>
+ 
+      <div class="setting-row">
+        <div>
+          <div class="setting-name">Sensibilité souris</div>
+          <div class="setting-desc">Vitesse de rotation de la caméra</div>
+        </div>
+        <div class="setting-slider-wrap">
+          <span>1.0</span>
+          <input type="range" id="sens-slider" min="0.5" max="2.0" step="0.1" value="1.0" />
+        </div>
+      </div>
+    </div>
+ 
+    <!-- GRAPHISMES -->
+    <div class="settings-section">
+      <div class="settings-section-label">Graphismes</div>
+ 
+      <div class="setting-row">
+        <div>
+          <div class="setting-name">Champ de vision (FOV)</div>
+          <div class="setting-desc">Angle de vue horizontal</div>
+        </div>
+        <div class="setting-slider-wrap">
+          <span>75</span>
+          <input type="range" id="fov-slider" min="60" max="110" step="5" value="75" />
+        </div>
+      </div>
+ 
+      <div class="setting-row">
+        <div>
+          <div class="setting-name">Taille du réticule</div>
+        </div>
+        <div class="setting-slider-wrap">
+          <span>1.0</span>
+          <input type="range" id="crosshair-slider" min="0.5" max="2.0" step="0.1" value="1.0" />
+        </div>
+      </div>
+ 
+      <div class="setting-row">
+        <div>
+          <div class="setting-name">Compteur FPS</div>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="fps-toggle" />
+          <div class="toggle-track"></div>
+          <div class="toggle-thumb"></div>
+        </label>
+      </div>
+    </div>
+ 
+    <!-- INTERFACE -->
+    <div class="settings-section">
+      <div class="settings-section-label">Interface</div>
+ 
+      <div class="setting-row">
+        <div>
+          <div class="setting-name">Hit marker</div>
+          <div class="setting-desc">Indicateur visuel lors d'un tir réussi</div>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="hitmarker-toggle" checked />
+          <div class="toggle-track"></div>
+          <div class="toggle-thumb"></div>
+        </label>
+      </div>
+ 
+      <div class="setting-row">
+        <div>
+          <div class="setting-name">Volume</div>
+        </div>
+        <div class="setting-slider-wrap">
+          <span>80%</span>
+          <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="0.8" />
+        </div>
+      </div>
+    </div>
+ 
+    <!-- FOOTER -->
+    <div class="settings-footer">
+      <button class="btn-primary"   onclick="closeSettings()">APPLIQUER</button>
+      <button class="btn-secondary" onclick="resetSettings()">RÉINITIALISER</button>
+    </div>
+  </div>
+</div>
+ 
+<!-- ════════════════════════════════════════
+     GAME OVER
+════════════════════════════════════════ -->
+<div id="gameover-overlay" class="overlay">
+  <h1>PARTIE TERMINÉE</h1>
+  <div class="sub">Résultats :</div>
+ 
+  <div class="stats-grid">
+    <div class="stat-item">Score final    <span id="final-score">0</span></div>
+    <div class="stat-item">Cibles touchées<span id="final-hits">0</span></div>
+    <div class="stat-item">Précision      <span id="final-acc">—</span></div>
+    <div class="stat-item">Tirs effectués <span id="final-shots">0</span></div>
+  </div>
+ 
+  <div class="gameover-buttons">
+    <button class="btn-primary"   onclick="startGame()">REJOUER</button>
+    <button class="btn-secondary" onclick="showOverlay('menu')">MENU</button>
+  </div>
+</div>
+ 
+<!-- ── Three.js ──────────────────────────── -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="game.js"></script>
+ 
+</body>
+</html>
+ 
