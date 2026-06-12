@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Florin Gabriel Popa — Portfolio</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    /* ── HERO ─────────────────────────────── */
+    #hero {
+      min-height:100vh; display:flex; flex-direction:column;
+      justify-content:center; padding:80px 60px 60px;
+      position:relative; overflow:hidden;
+    }
+    #matrix-canvas {
+      position:absolute; inset:0; width:100%; height:100%;
+      opacity:.06; pointer-events:none;
+    }
+    .hero-inner { position:relative; z-index:1; }
+
+    .hero-prompt {
+      font-family:var(--mono); font-size:.75rem;
+      color:var(--green); letter-spacing:2px; margin-bottom:18px;
+      opacity:0; animation:fadeUp .6s ease .2s forwards;
+    }
+    .hero-prompt::before { content:'root@portfolio:~$ '; color:var(--text-dim); }
+
+    .hero-name {
+      font-family:var(--display); font-weight:900;
+      font-size:clamp(42px,8.5vw,108px); letter-spacing:4px; line-height:1;
+      color:var(--green);
+      text-shadow:0 0 30px rgba(0,229,68,.38),0 0 60px rgba(0,229,68,.14);
+      opacity:0; animation:fadeUp .6s ease .4s forwards;
+    }
+    .hero-name .outline {
+      color:transparent; -webkit-text-stroke:1.5px var(--green-dim); text-shadow:none;
+    }
+
+    .hero-role {
+      margin-top:20px; font-family:var(--mono); font-size:.95rem;
+      color:var(--text-muted); opacity:0; animation:fadeUp .6s ease .6s forwards;
+    }
+    .hero-role .hl { color:var(--green); }
+
+    .hero-desc {
+      margin-top:26px; font-size:1.05rem; font-weight:300;
+      color:var(--text-muted); max-width:520px; line-height:1.75;
+      opacity:0; animation:fadeUp .6s ease .8s forwards;
+    }
+    .hero-desc strong { color:var(--text); font-weight:600; }
+
+    .hero-cta {
+      margin-top:40px; display:flex; gap:14px; flex-wrap:wrap;
+      opacity:0; animation:fadeUp .6s ease 1s forwards;
+    }
+
+    .scroll-hint {
+      position:absolute; bottom:36px; left:60px;
+      font-family:var(--mono); font-size:.62rem;
+      letter-spacing:3px; color:var(--text-dim);
+      display:flex; align-items:center; gap:12px;
+      opacity:0; animation:fadeUp .6s ease 1.3s forwards;
+    }
+    .scroll-arrow {
+      width:14px; height:14px;
+      border-right:1px solid var(--text-dim); border-bottom:1px solid var(--text-dim);
+      transform:rotate(45deg); animation:bounce 2s infinite;
+    }
+
+    /* ── ABOUT ────────────────────────────── */
+    #about { background:var(--bg2); border-top:1px solid var(--border); }
+
+    .about-grid {
+      display:grid; grid-template-columns:1.2fr 0.8fr;
+      gap:56px; align-items:start;
+    }
+    .about-text p {
+      font-size:1rem; line-height:1.9; color:var(--text-muted);
+      margin-bottom:14px; font-weight:400;
+    }
+    .about-text p strong { color:var(--text); font-weight:600; }
+    .about-tags { display:flex; gap:9px; flex-wrap:wrap; margin-top:26px; }
+
+    @media(max-width:800px){
+      #hero { padding:80px 24px 50px; }
+      .about-grid { grid-template-columns:1fr; gap:32px; }
+      .scroll-hint { left:24px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <nav>
+    <a href="index.html" class="nav-logo">FGP<span class="slash">/</span>DEV</a>
+    <ul class="nav-links">
+      <li><a href="index.html"      class="active">accueil</a></li>
+      <li><a href="experience.html">expérience</a></li>
+      <li><a href="skills.html">skills</a></li>
+      <li><a href="projects.html">projets</a></li>
+      <li><a href="contact.html">contact</a></li>
+    </ul>
+    <div class="nav-status"><div class="status-dot"></div>DISPONIBLE</div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <canvas id="matrix-canvas"></canvas>
+    <div class="hero-inner">
+      <p class="hero-prompt">whoami<span class="blink">_</span></p>
+      <h1 class="hero-name glitch">
+        FLORIN<br>GABRIEL<br><span class="outline">POPA</span>
+      </h1>
+      <p class="hero-role">
+        <span class="hl">BTS SIO SLAM</span> · H3 HITEMA Paris
+      </p>
+      <p class="hero-desc">
+        Étudiant développeur passionné de <strong>supercars</strong> et de <strong>jeux vidéo</strong>.
+        Je code des sites, des applis et des expériences qui ont du style.
+      </p>
+      <div class="hero-cta">
+        <a href="projects.html" class="btn-primary">./voir_projets</a>
+        <a href="contact.html"  class="btn-secondary">./contact</a>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <div class="scroll-arrow"></div>SCROLL
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-wrap">
+      <div class="section-header reveal">
+        <span class="section-num">[ 01 ]</span>
+        <h2 class="section-title">À PROPOS</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p>
+            Je m'appelle <strong>Florin Gabriel Popa</strong>, actuellement en <strong>1ère année
+            de BTS SIO option SLAM</strong> à l'école <strong>H3 HITEMA</strong> à Paris.
+            Je me spécialise dans le développement d'applications web et logicielles.
+          </p>
+          <p>
+            En dehors du code, je suis passionné par l'univers des <strong>supercars</strong> — j'ai
+            d'ailleurs créé un site entier sur le sujet — et je passe mes soirées sur des
+            <strong>jeux vidéo</strong>. J'ai même développé un jeu FPS en JavaScript.
+          </p>
+          <p>
+            Ces deux passions alimentent mon approche des projets : du <strong>détail</strong>,
+            de la <strong>performance</strong> et un vrai sens du rendu visuel.
+          </p>
+          <div class="about-tags">
+            <span class="tag">🚗 SUPERCARS</span>
+            <span class="tag">🎮 GAMING</span>
+            <span class="tag">💻 DEV WEB</span>
+            <span class="tag">📱 DEV MOBILE</span>
+          </div>
+        </div>
+
+        <div class="terminal-card reveal">
+          <div class="terminal-bar">
+            <div class="t-dot t-dot-r"></div>
+            <div class="t-dot t-dot-y"></div>
+            <div class="t-dot t-dot-g"></div>
+            <span class="terminal-title">profile.json</span>
+          </div>
+          <div class="terminal-body">
+            <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">cat profile.json</span></div>
+            <div class="t-out">&#123;</div>
+            <div class="t-out">&nbsp;&nbsp;"nom": <span class="t-val">"Florin Gabriel Popa"</span>,</div>
+            <div class="t-out">&nbsp;&nbsp;"formation": <span class="t-val">"BTS SIO SLAM"</span>,</div>
+            <div class="t-out">&nbsp;&nbsp;"année": <span class="t-val">"1ère année"</span>,</div>
+            <div class="t-out">&nbsp;&nbsp;"école": <span class="t-val">"H3 HITEMA"</span>,</div>
+            <div class="t-out">&nbsp;&nbsp;"ville": <span class="t-val">"Paris, France"</span>,</div>
+            <div class="t-out">&nbsp;&nbsp;"passions": [</div>
+            <div class="t-out">&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-val">"supercars"</span>,</div>
+            <div class="t-out">&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-val">"gaming"</span>,</div>
+            <div class="t-out">&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-val">"dev"</span></div>
+            <div class="t-out">&nbsp;&nbsp;],</div>
+            <div class="t-out">&nbsp;&nbsp;"status": <span class="t-val">"disponible"</span></div>
+            <div class="t-out">&#125;</div>
+            <div class="t-line" style="margin-top:8px"><span class="t-prompt">$</span><span class="blink" style="color:var(--green)">_</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="footer-txt">© 2025–2026 <span>Florin Gabriel Popa</span></p>
+    <p class="footer-txt">BTS SIO SLAM · <span>H3 HITEMA</span></p>
+  </footer>
+
+</div>
+<script>
+  // Matrix rain
+  (function(){
+    const c = document.getElementById('matrix-canvas');
+    if(!c) return;
+    const ctx = c.getContext('2d');
+    function resize(){ c.width=window.innerWidth; c.height=window.innerHeight; }
+    resize(); window.addEventListener('resize',resize);
+    const chars='01アイウエカキクサシスタチナニ∑∆∂∇';
+    const fs=13; let drops=[];
+    function init(){ drops=Array(Math.floor(c.width/fs)).fill(0); }
+    init(); window.addEventListener('resize',init);
+    setInterval(()=>{
+      ctx.fillStyle='rgba(2,12,2,0.05)';
+      ctx.fillRect(0,0,c.width,c.height);
+      for(let i=0;i<drops.length;i++){
+        ctx.fillStyle=Math.random()>.97?'#fff':'#00e544';
+        ctx.font=fs+'px monospace';
+        ctx.fillText(chars[Math.floor(Math.random()*chars.length)],i*fs,drops[i]*fs);
+        if(drops[i]*fs>c.height&&Math.random()>.975) drops[i]=0;
+        drops[i]++;
+      }
+    },55);
+  })();
+  // Reveal
+  const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}}),{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
