@@ -3,172 +3,102 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Skills — Florin Gabriel Popa</title>
+  <title>Skills — Gabriel Popa</title>
   <link rel="stylesheet" href="style.css"/>
   <style>
+    #skills-page { background: var(--bg); border-bottom: 1px solid var(--border); }
 
-    /* ── SKILL CARDS GRID ─────────────────── */
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 2px;
-      margin-bottom: 60px;
+      margin-bottom: 64px;
     }
 
-    .skill-card {
-      background: var(--card);
+    .skill-group {
+      background: var(--bg2);
       border: 1px solid var(--border);
-      padding: 30px 28px;
+      padding: 32px;
+      transition: border-color .25s;
+    }
+    .skill-group:hover { border-color: var(--border2); }
+
+    .sg-label {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 24px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skill-list { list-style: none; display: flex; flex-direction: column; gap: 18px; }
+
+    .skill-item { display: flex; flex-direction: column; gap: 7px; }
+
+    .skill-row {
       display: flex;
-      flex-direction: column;
-      gap: 18px;
-      position: relative;
-      overflow: hidden;
-      transition: border-color .3s, box-shadow .3s;
+      justify-content: space-between;
+      align-items: baseline;
     }
-
-    .skill-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 0; height: 2px;
-      background: var(--green);
-      transition: width .5s ease;
-    }
-    .skill-card:hover { border-color: var(--border-lit); box-shadow: 0 0 20px var(--green-glow2); }
-    .skill-card:hover::after { width: 100%; }
-
-    /* Icône + nom */
-    .skill-top {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .skill-icon {
-      width: 44px; height: 44px;
-      border: 1px solid var(--border-lit);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.3rem;
-      flex-shrink: 0;
-      transition: border-color .3s, box-shadow .3s;
-    }
-    .skill-card:hover .skill-icon {
-      border-color: var(--green-dim);
-      box-shadow: 0 0 12px var(--green-glow);
-    }
-
     .skill-name {
-      font-family: var(--display);
-      font-size: .82rem;
-      letter-spacing: 3px;
+      font-size: .85rem;
+      font-weight: 400;
       color: var(--text);
     }
-
-    /* Badge niveau */
-    .skill-level {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      width: fit-content;
-    }
-
-    .level-dots {
-      display: flex;
-      gap: 5px;
-    }
-
-    .dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-    }
-
-    .dot.on  { background: var(--green); box-shadow: 0 0 6px var(--green); }
-    .dot.off { background: var(--border-lit); }
-
-    .level-label {
-      font-family: var(--mono);
-      font-size: .6rem;
-      letter-spacing: 2px;
-      color: var(--text-dim);
-      text-transform: uppercase;
-    }
-
-    /* Description courte */
-    .skill-desc {
-      font-family: var(--mono);
-      font-size: .72rem;
-      color: var(--text-dim);
-      line-height: 1.7;
-      border-top: 1px solid var(--border);
-      padding-top: 14px;
-    }
-
-    /* ── SECTION OUTILS ───────────────────── */
-    .tools-section-title {
-      font-family: var(--mono);
+    .skill-lvl {
       font-size: .65rem;
-      letter-spacing: 3px;
-      color: var(--text-dim);
+      font-weight: 500;
+      letter-spacing: .06em;
       text-transform: uppercase;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      color: var(--dim);
     }
-    .tools-section-title::before { content: '//'; color: var(--border-lit); }
-    .tools-section-title::after  {
-      content: '';
-      flex: 1;
-      height: 1px;
+
+    .bar-wrap {
+      height: 2px;
       background: var(--border);
-      max-width: 200px;
+      overflow: hidden;
+    }
+    .bar {
+      height: 100%;
+      background: var(--accent);
+      transform-origin: left;
+      transform: scaleX(0);
+      transition: transform 1s cubic-bezier(.16,1,.3,1);
     }
 
-    .tools-row {
-      display: flex;
+    /* Tools */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       gap: 2px;
-      flex-wrap: wrap;
     }
 
-    .tool-chip {
-      background: var(--card);
+    .tool-card {
+      background: var(--bg2);
       border: 1px solid var(--border);
-      padding: 10px 18px;
+      padding: 16px 20px;
       display: flex;
       align-items: center;
-      gap: 9px;
-      font-family: var(--mono);
-      font-size: .7rem;
-      letter-spacing: 1.5px;
-      color: var(--text-muted);
-      transition: border-color .25s, color .25s;
+      gap: 12px;
+      font-size: .82rem;
+      color: var(--muted);
+      transition: border-color .2s, color .2s;
     }
-    .tool-chip:hover {
-      border-color: var(--green-dim);
-      color: var(--green);
-    }
-    .tool-chip-icon { font-size: 1rem; }
+    .tool-card:hover { border-color: var(--border2); color: var(--text); }
 
-    /* ── NOTE BAS DE PAGE ─────────────────── */
-    .skills-note {
-      margin-top: 48px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--green-dim);
-      padding: 16px 22px;
-      font-family: var(--mono);
-      font-size: .72rem;
-      color: var(--text-dim);
-      line-height: 1.8;
+    .tool-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--border2);
+      flex-shrink: 0;
     }
-    .skills-note span { color: var(--green); }
 
-    @media(max-width:900px) {
-      .skills-grid { grid-template-columns: 1fr 1fr; }
-    }
-    @media(max-width:580px) {
+    @media (max-width: 800px) {
       .skills-grid { grid-template-columns: 1fr; }
+      .tools-grid  { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
@@ -176,186 +106,147 @@
 <div class="page">
 
   <nav>
-    <a href="index.html" class="nav-logo">FGP<span class="slash">/</span>DEV</a>
+    <a href="index.html" class="nav-logo">Gabriel <span>Popa</span></a>
     <ul class="nav-links">
-      <li><a href="index.html">accueil</a></li>
-      <li><a href="experience.html">expérience</a></li>
-      <li><a href="skills.html" class="active">skills</a></li>
-      <li><a href="projects.html">projets</a></li>
-      <li><a href="contact.html">contact</a></li>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="experience.html">Expérience</a></li>
+      <li><a href="skills.html" class="active">Skills</a></li>
+      <li><a href="projects.html">Projets</a></li>
+      <li><a href="veille.html">Veille</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
-    <div class="nav-status"><div class="status-dot"></div>DISPONIBLE</div>
+    <div class="nav-dot"></div>
   </nav>
 
-  <div class="section-wrap">
+  <section id="skills-page">
+    <div class="section-wrap">
 
-    <div class="section-header reveal">
-      <span class="section-num">[ 03 ]</span>
-      <h2 class="section-title">SKILLS</h2>
-      <div class="section-line"></div>
-    </div>
-
-    <!-- Cartes compétences -->
-    <div class="skills-grid">
-
-      <!-- HTML -->
-      <div class="skill-card reveal">
-        <div class="skill-top">
-          <div class="skill-icon">🌐</div>
-          <span class="skill-name">HTML</span>
-        </div>
-        <div class="skill-level">
-          <div class="level-dots">
-            <div class="dot on"></div>
-            <div class="dot on"></div>
-            <div class="dot off"></div>
-            <div class="dot off"></div>
-            <div class="dot off"></div>
-          </div>
-          <span class="level-label">DÉBUTANT</span>
-        </div>
-        <p class="skill-desc">
-          Structure de pages, balises sémantiques, formulaires,
-          intégration de médias.
-        </p>
+      <div class="section-eyebrow reveal">
+        <span class="section-num">03</span>
+        <h2 class="section-title">Skills</h2>
+        <div class="eyebrow-line"></div>
       </div>
 
-      <!-- CSS -->
-      <div class="skill-card reveal">
-        <div class="skill-top">
-          <div class="skill-icon">🎨</div>
-          <span class="skill-name">CSS</span>
+      <div class="skills-grid">
+
+        <div class="skill-group reveal">
+          <div class="sg-label">Frontend</div>
+          <ul class="skill-list">
+            <li class="skill-item">
+              <div class="skill-row">
+                <span class="skill-name">HTML</span>
+                <span class="skill-lvl">Intermédiaire</span>
+              </div>
+              <div class="bar-wrap"><div class="bar" data-w=".60"></div></div>
+            </li>
+            <li class="skill-item">
+              <div class="skill-row">
+                <span class="skill-name">CSS</span>
+                <span class="skill-lvl">Intermédiaire</span>
+              </div>
+              <div class="bar-wrap"><div class="bar" data-w=".60"></div></div>
+            </li>
+            <li class="skill-item">
+              <div class="skill-row">
+                <span class="skill-name">JavaScript</span>
+                <span class="skill-lvl">Intermédiaire</span>
+              </div>
+              <div class="bar-wrap"><div class="bar" data-w=".55"></div></div>
+            </li>
+            <li class="skill-item">
+              <div class="skill-row">
+                <span class="skill-name">Three.js</span>
+                <span class="skill-lvl">Débutant</span>
+              </div>
+              <div class="bar-wrap"><div class="bar" data-w=".35"></div></div>
+            </li>
+          </ul>
         </div>
-        <div class="skill-level">
-          <div class="level-dots">
-            <div class="dot on"></div>
-            <div class="dot on"></div>
-            <div class="dot off"></div>
-            <div class="dot off"></div>
-            <div class="dot off"></div>
-          </div>
-          <span class="level-label">DÉBUTANT</span>
+
+        <div class="skill-group reveal">
+          <div class="sg-label">Backend</div>
+          <ul class="skill-list">
+            <li class="skill-item">
+              <div class="skill-row">
+                <span class="skill-name">PHP</span>
+                <span class="skill-lvl">Débutant</span>
+              </div>
+              <div class="bar-wrap"><div class="bar" data-w=".40"></div></div>
+            </li>
+            <li class="skill-item">
+              <div class="skill-row">
+                <span class="skill-name">SQL / MySQL</span>
+                <span class="skill-lvl">Débutant</span>
+              </div>
+              <div class="bar-wrap"><div class="bar" data-w=".40"></div></div>
+            </li>
+            <li class="skill-item">
+              <div class="skill-row">
+                <span class="skill-name">Java</span>
+                <span class="skill-lvl">Débutant</span>
+              </div>
+              <div class="bar-wrap"><div class="bar" data-w=".32"></div></div>
+            </li>
+          </ul>
         </div>
-        <p class="skill-desc">
-          Mise en page, flexbox, animations de base,
-          design responsive.
-        </p>
+
+        <div class="skill-group reveal">
+          <div class="sg-label">Outils & Infra</div>
+          <ul class="skill-list">
+            <li class="skill-item">
+              <div class="skill-row">
+                <span class="skill-name">Git / GitHub</span>
+                <span class="skill-lvl">Intermédiaire</span>
+              </div>
+              <div class="bar-wrap"><div class="bar" data-w=".58"></div></div>
+            </li>
+            <li class="skill-item">
+              <div class="skill-row">
+                <span class="skill-name">VS Code</span>
+                <span class="skill-lvl">Intermédiaire</span>
+              </div>
+              <div class="bar-wrap"><div class="bar" data-w=".70"></div></div>
+            </li>
+            <li class="skill-item">
+              <div class="skill-row">
+                <span class="skill-name">Ionos / Hébergement</span>
+                <span class="skill-lvl">Débutant</span>
+              </div>
+              <div class="bar-wrap"><div class="bar" data-w=".42"></div></div>
+            </li>
+          </ul>
+        </div>
+
       </div>
 
-      <!-- JavaScript -->
-      <div class="skill-card reveal">
-        <div class="skill-top">
-          <div class="skill-icon">⚡</div>
-          <span class="skill-name">JAVASCRIPT</span>
-        </div>
-        <div class="skill-level">
-          <div class="level-dots">
-            <div class="dot on"></div>
-            <div class="dot off"></div>
-            <div class="dot off"></div>
-            <div class="dot off"></div>
-            <div class="dot off"></div>
-          </div>
-          <span class="level-label">NOTIONS</span>
-        </div>
-        <p class="skill-desc">
-          Manipulation du DOM, événements, logique de base,
-          utilisation de librairies (Three.js).
-        </p>
+      <!-- Technologies -->
+      <div class="section-eyebrow reveal" style="margin-bottom: 24px;">
+        <span class="section-num">//</span>
+        <h3 class="section-title" style="font-size: clamp(16px,2vw,22px);">Technologies</h3>
+        <div class="eyebrow-line"></div>
       </div>
 
-      <!-- PHP -->
-      <div class="skill-card reveal">
-        <div class="skill-top">
-          <div class="skill-icon">🐘</div>
-          <span class="skill-name">PHP</span>
-        </div>
-        <div class="skill-level">
-          <div class="level-dots">
-            <div class="dot on"></div>
-            <div class="dot off"></div>
-            <div class="dot off"></div>
-            <div class="dot off"></div>
-            <div class="dot off"></div>
-          </div>
-          <span class="level-label">DÉBUTANT</span>
-        </div>
-        <p class="skill-desc">
-          Traitement de formulaires, variables, conditions,
-          interactions avec une base de données.
-        </p>
-      </div>
-
-      <!-- MySQL -->
-      <div class="skill-card reveal">
-        <div class="skill-top">
-          <div class="skill-icon">🗄</div>
-          <span class="skill-name">MYSQL</span>
-        </div>
-        <div class="skill-level">
-          <div class="level-dots">
-            <div class="dot on"></div>
-            <div class="dot off"></div>
-            <div class="dot off"></div>
-            <div class="dot off"></div>
-            <div class="dot off"></div>
-          </div>
-          <span class="level-label">DÉBUTANT</span>
-        </div>
-        <p class="skill-desc">
-          Requêtes SELECT, INSERT, UPDATE, création de tables,
-          relations simples entre données.
-        </p>
-      </div>
-
-      <!-- Git -->
-      <div class="skill-card reveal">
-        <div class="skill-top">
-          <div class="skill-icon">📦</div>
-          <span class="skill-name">GIT / GITHUB</span>
-        </div>
-        <div class="skill-level">
-          <div class="level-dots">
-            <div class="dot on"></div>
-            <div class="dot on"></div>
-            <div class="dot off"></div>
-            <div class="dot off"></div>
-            <div class="dot off"></div>
-          </div>
-          <span class="level-label">DÉBUTANT</span>
-        </div>
-        <p class="skill-desc">
-          Versionning, commits, push/pull, GitHub Pages
-          pour héberger des projets.
-        </p>
+      <div class="tools-grid reveal">
+        <div class="tool-card"><div class="tool-dot"></div>HTML5</div>
+        <div class="tool-card"><div class="tool-dot"></div>CSS3</div>
+        <div class="tool-card"><div class="tool-dot"></div>JavaScript</div>
+        <div class="tool-card"><div class="tool-dot"></div>PHP</div>
+        <div class="tool-card"><div class="tool-dot"></div>MySQL</div>
+        <div class="tool-card"><div class="tool-dot"></div>Java</div>
+        <div class="tool-card"><div class="tool-dot"></div>Git / GitHub</div>
+        <div class="tool-card"><div class="tool-dot"></div>Three.js</div>
+        <div class="tool-card"><div class="tool-dot"></div>Ionos</div>
+        <div class="tool-card"><div class="tool-dot"></div>VS Code</div>
+        <div class="tool-card"><div class="tool-dot"></div>Dev mobile</div>
+        <div class="tool-card"><div class="tool-dot"></div>GitHub Pages</div>
       </div>
 
     </div>
-
-    <!-- Outils -->
-    <div class="tools-section-title reveal">OUTILS & ENVIRONNEMENT</div>
-
-    <div class="tools-row reveal">
-      <div class="tool-chip"><span class="tool-chip-icon">💻</span> VS Code</div>
-      <div class="tool-chip"><span class="tool-chip-icon">☁</span> GitHub Pages</div>
-      <div class="tool-chip"><span class="tool-chip-icon">🖥</span> Ionos</div>
-      <div class="tool-chip"><span class="tool-chip-icon">📱</span> Dev Mobile</div>
-      <div class="tool-chip"><span class="tool-chip-icon">🔷</span> Three.js</div>
-      <div class="tool-chip"><span class="tool-chip-icon">☕</span> Java</div>
-    </div>
-
-    <!-- Note -->
-    <div class="skills-note reveal">
-      <span>// note :</span> Actuellement en <span>1ère année de BTS SIO SLAM</span> —
-      ces compétences sont en cours d'acquisition. Chaque projet est une opportunité
-      d'apprendre et de progresser.
-    </div>
-
-  </div>
+  </section>
 
   <footer>
-    <p class="footer-txt">© 2025–2026 <span>Florin Gabriel Popa</span></p>
-    <p class="footer-txt">BTS SIO SLAM · <span>H3 HITEMA</span></p>
+    <p class="footer-text">© 2025–2027 Gabriel Popa</p>
+    <p class="footer-text">BTS SIO SLAM · <span>H3 HITEMA</span></p>
   </footer>
 
 </div>
@@ -364,6 +255,14 @@
     if (x.isIntersecting) { x.target.classList.add('visible'); obs.unobserve(x.target); }
   }), { threshold: .08 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  const barObs = new IntersectionObserver(e => e.forEach(x => {
+    if (x.isIntersecting) {
+      x.target.querySelectorAll('.bar').forEach(b => b.style.transform = `scaleX(${b.dataset.w})`);
+      barObs.unobserve(x.target);
+    }
+  }), { threshold: .3 });
+  document.querySelectorAll('.skill-group').forEach(g => barObs.observe(g));
 </script>
 </body>
 </html>
