@@ -3,88 +3,207 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Florin Gabriel Popa — Portfolio</title>
+  <title>Gabriel Popa — Développeur Web</title>
   <link rel="stylesheet" href="style.css"/>
   <style>
     /* ── HERO ─────────────────────────────── */
     #hero {
-      min-height:100vh; display:flex; flex-direction:column;
-      justify-content:center; padding:80px 60px 60px;
-      position:relative; overflow:hidden;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 0 64px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
     }
-    #matrix-canvas {
-      position:absolute; inset:0; width:100%; height:100%;
-      opacity:.06; pointer-events:none;
-    }
-    .hero-inner { position:relative; z-index:1; }
 
-    .hero-prompt {
-      font-family:var(--mono); font-size:.75rem;
-      color:var(--green); letter-spacing:2px; margin-bottom:18px;
-      opacity:0; animation:fadeUp .6s ease .2s forwards;
+    .hero-left { padding-right: 80px; }
+
+    .hero-eyebrow {
+      font-size: .75rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      opacity: 0;
+      animation: fadeUp .5s ease .1s forwards;
     }
-    .hero-prompt::before { content:'root@portfolio:~$ '; color:var(--text-dim); }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 20px; height: 1px;
+      background: var(--border2);
+    }
 
     .hero-name {
-      font-family:var(--display); font-weight:900;
-      font-size:clamp(42px,8.5vw,108px); letter-spacing:4px; line-height:1;
-      color:var(--green);
-      text-shadow:0 0 30px rgba(0,229,68,.38),0 0 60px rgba(0,229,68,.14);
-      opacity:0; animation:fadeUp .6s ease .4s forwards;
+      font-family: var(--serif);
+      font-size: clamp(3.2rem, 6.5vw, 6rem);
+      font-weight: 400;
+      line-height: .92;
+      letter-spacing: -.03em;
+      color: var(--white);
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp .5s ease .25s forwards;
     }
-    .hero-name .outline {
-      color:transparent; -webkit-text-stroke:1.5px var(--green-dim); text-shadow:none;
+    .hero-name em {
+      font-style: italic;
+      color: var(--muted);
     }
-
-    .hero-role {
-      margin-top:20px; font-family:var(--mono); font-size:.95rem;
-      color:var(--text-muted); opacity:0; animation:fadeUp .6s ease .6s forwards;
-    }
-    .hero-role .hl { color:var(--green); }
 
     .hero-desc {
-      margin-top:26px; font-size:1.05rem; font-weight:300;
-      color:var(--text-muted); max-width:520px; line-height:1.75;
-      opacity:0; animation:fadeUp .6s ease .8s forwards;
+      font-size: .98rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 400px;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp .5s ease .4s forwards;
     }
-    .hero-desc strong { color:var(--text); font-weight:600; }
+    .hero-desc strong { color: var(--text); font-weight: 500; }
 
-    .hero-cta {
-      margin-top:40px; display:flex; gap:14px; flex-wrap:wrap;
-      opacity:0; animation:fadeUp .6s ease 1s forwards;
-    }
-
-    .scroll-hint {
-      position:absolute; bottom:36px; left:60px;
-      font-family:var(--mono); font-size:.62rem;
-      letter-spacing:3px; color:var(--text-dim);
-      display:flex; align-items:center; gap:12px;
-      opacity:0; animation:fadeUp .6s ease 1.3s forwards;
-    }
-    .scroll-arrow {
-      width:14px; height:14px;
-      border-right:1px solid var(--text-dim); border-bottom:1px solid var(--text-dim);
-      transform:rotate(45deg); animation:bounce 2s infinite;
+    .hero-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp .5s ease .55s forwards;
     }
 
-    /* ── ABOUT ────────────────────────────── */
-    #about { background:var(--bg2); border-top:1px solid var(--border); }
+    /* Right panel */
+    .hero-right {
+      border-left: 1px solid var(--border);
+      height: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 0 72px 64px;
+    }
+
+    .hero-stats { display: flex; flex-direction: column; gap: 0; }
+
+    .hero-stat {
+      padding: 28px 0;
+      border-top: 1px solid var(--border);
+      opacity: 0;
+      animation: fadeUp .5s ease forwards;
+    }
+    .hero-stat:nth-child(1) { animation-delay: .35s; }
+    .hero-stat:nth-child(2) { animation-delay: .45s; }
+    .hero-stat:nth-child(3) { animation-delay: .55s; }
+    .hero-stat:last-child { border-bottom: 1px solid var(--border); }
+
+    .stat-num {
+      font-family: var(--serif);
+      font-size: 2.6rem;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 32px; left: 64px;
+      font-size: .68rem;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--dim);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      animation: fadeUp .5s ease .8s forwards;
+    }
+    .scroll-line {
+      width: 28px; height: 1px;
+      background: var(--border2);
+      position: relative;
+      overflow: hidden;
+    }
+    .scroll-line::after {
+      content: '';
+      position: absolute;
+      left: -28px; top: 0;
+      width: 28px; height: 1px;
+      background: var(--accent);
+      animation: slide 2s ease infinite;
+    }
+    @keyframes slide { to { left: 100%; } }
+
+    /* ── ABOUT ─────────────────────────────── */
+    #about {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+    }
 
     .about-grid {
-      display:grid; grid-template-columns:1.2fr 0.8fr;
-      gap:56px; align-items:start;
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr;
+      gap: 0;
     }
-    .about-text p {
-      font-size:1rem; line-height:1.9; color:var(--text-muted);
-      margin-bottom:14px; font-weight:400;
-    }
-    .about-text p strong { color:var(--text); font-weight:600; }
-    .about-tags { display:flex; gap:9px; flex-wrap:wrap; margin-top:26px; }
+    .about-col { padding: 0 56px 0 0; }
+    .about-col:last-child { padding: 0 0 0 56px; }
+    .about-sep { background: var(--border); min-height: 260px; }
 
-    @media(max-width:800px){
-      #hero { padding:80px 24px 50px; }
-      .about-grid { grid-template-columns:1fr; gap:32px; }
-      .scroll-hint { left:24px; }
+    .about-text {
+      font-size: .95rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.85;
+      margin-bottom: 14px;
+    }
+    .about-text strong { color: var(--text); font-weight: 500; }
+
+    .about-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+
+    .info-list { display: flex; flex-direction: column; }
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border);
+      gap: 16px;
+    }
+    .info-row:first-child { border-top: 1px solid var(--border); }
+    .info-key {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--dim);
+      flex-shrink: 0;
+    }
+    .info-val {
+      font-size: .88rem;
+      color: var(--text);
+      text-align: right;
+    }
+    .info-val.available { color: #6ee77f; }
+
+    @media (max-width: 860px) {
+      #hero { grid-template-columns: 1fr; padding: 100px 24px 60px; min-height: auto; }
+      .hero-right { display: none; }
+      .hero-scroll { left: 24px; }
+      .hero-left { padding-right: 0; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-sep { display: none; }
+      .about-col { padding: 0 0 40px 0; }
+      .about-col:last-child { padding: 40px 0 0 0; border-top: 1px solid var(--border); }
     }
   </style>
 </head>
@@ -92,98 +211,123 @@
 <div class="page">
 
   <nav>
-    <a href="index.html" class="nav-logo">FGP<span class="slash">/</span>DEV</a>
+    <a href="index.html" class="nav-logo">Gabriel <span>Popa</span></a>
     <ul class="nav-links">
-      <li><a href="index.html"      class="active">accueil</a></li>
-      <li><a href="experience.html">expérience</a></li>
-      <li><a href="skills.html">skills</a></li>
-      <li><a href="projects.html">projets</a></li>
-      <li><a href="contact.html">contact</a></li>
+      <li><a href="index.html" class="active">Accueil</a></li>
+      <li><a href="experience.html">Expérience</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="projects.html">Projets</a></li>
+      <li><a href="veille.html">Veille</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
-    <div class="nav-status"><div class="status-dot"></div>DISPONIBLE</div>
+    <div class="nav-dot"></div>
   </nav>
 
   <!-- HERO -->
   <section id="hero">
-    <canvas id="matrix-canvas"></canvas>
-    <div class="hero-inner">
-      <p class="hero-prompt">whoami<span class="blink">_</span></p>
-      <h1 class="hero-name glitch">
-        FLORIN<br>GABRIEL<br><span class="outline">POPA</span>
-      </h1>
-      <p class="hero-role">
-        <span class="hl">BTS SIO SLAM</span> · H3 HITEMA Paris
-      </p>
+    <div class="hero-left">
+      <p class="hero-eyebrow">Développeur Web — BTS SIO SLAM</p>
+      <h1 class="hero-name">Gabriel<br><em>Popa</em></h1>
       <p class="hero-desc">
-        Étudiant développeur passionné de <strong>supercars</strong> et de <strong>jeux vidéo</strong>.
-        Je code des sites, des applis et des expériences qui ont du style.
+        Étudiant en développement logiciel à <strong>H3 HITEMA Paris</strong>.
+        Passionné d'informatique, de voitures et de jeux vidéo — je conçois des interfaces
+        propres et des projets qui ont du caractère.
       </p>
-      <div class="hero-cta">
-        <a href="projects.html" class="btn-primary">./voir_projets</a>
-        <a href="contact.html"  class="btn-secondary">./contact</a>
+      <div class="hero-actions">
+        <a href="projects.html" class="btn btn-solid">Voir mes projets</a>
+        <a href="contact.html" class="btn">Me contacter</a>
       </div>
     </div>
-    <div class="scroll-hint">
-      <div class="scroll-arrow"></div>SCROLL
+
+    <div class="hero-right">
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="stat-num">1re</div>
+          <div class="stat-label">Année BTS SIO SLAM</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-num">3+</div>
+          <div class="stat-label">Projets réalisés</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-num">B2</div>
+          <div class="stat-label">Niveau anglais</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      Défiler
     </div>
   </section>
 
   <!-- ABOUT -->
   <section id="about">
     <div class="section-wrap">
-      <div class="section-header reveal">
-        <span class="section-num">[ 01 ]</span>
-        <h2 class="section-title">À PROPOS</h2>
-        <div class="section-line"></div>
+      <div class="section-eyebrow reveal">
+        <span class="section-num">01</span>
+        <h2 class="section-title">A propos</h2>
+        <div class="eyebrow-line"></div>
       </div>
 
       <div class="about-grid">
-        <div class="about-text reveal">
-          <p>
-            Je m'appelle <strong>Florin Gabriel Popa</strong>, actuellement en <strong>1ère année
-            de BTS SIO option SLAM</strong> à l'école <strong>H3 HITEMA</strong> à Paris.
-            Je me spécialise dans le développement d'applications web et logicielles.
+        <div class="about-col reveal">
+          <p class="about-text">
+            Je m'appelle <strong>Gabriel Popa</strong>, étudiant en <strong>BTS SIO option SLAM</strong>
+            à <strong>H3 HITEMA Paris</strong>. Je me spécialise dans le développement d'applications
+            web et logicielles.
           </p>
-          <p>
-            En dehors du code, je suis passionné par l'univers des <strong>supercars</strong> — j'ai
-            d'ailleurs créé un site entier sur le sujet — et je passe mes soirées sur des
-            <strong>jeux vidéo</strong>. J'ai même développé un jeu FPS en JavaScript.
+          <p class="about-text">
+            Issu d'un <strong>Bac Pro SN option RISC</strong>, j'ai effectué plusieurs stages
+            en entreprise qui m'ont confronté à des environnements professionnels variés — du
+            déploiement réseau au développement applicatif.
           </p>
-          <p>
-            Ces deux passions alimentent mon approche des projets : du <strong>détail</strong>,
-            de la <strong>performance</strong> et un vrai sens du rendu visuel.
+          <p class="about-text">
+            En dehors du code, je suis passionné par les <strong>voitures</strong> — j'ai
+            construit un site entier dédié aux supercars — et les <strong>jeux vidéo</strong>,
+            univers dans lequel j'ai aussi développé un jeu FPS en JavaScript.
           </p>
           <div class="about-tags">
-            <span class="tag">🚗 SUPERCARS</span>
-            <span class="tag">🎮 GAMING</span>
-            <span class="tag">💻 DEV WEB</span>
-            <span class="tag">📱 DEV MOBILE</span>
+            <span class="pill">Développement web</span>
+            <span class="pill">Dev mobile</span>
+            <span class="pill">Voitures</span>
+            <span class="pill">Gaming</span>
           </div>
         </div>
 
-        <div class="terminal-card reveal">
-          <div class="terminal-bar">
-            <div class="t-dot t-dot-r"></div>
-            <div class="t-dot t-dot-y"></div>
-            <div class="t-dot t-dot-g"></div>
-            <span class="terminal-title">profile.json</span>
-          </div>
-          <div class="terminal-body">
-            <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">cat profile.json</span></div>
-            <div class="t-out">&#123;</div>
-            <div class="t-out">&nbsp;&nbsp;"nom": <span class="t-val">"Florin Gabriel Popa"</span>,</div>
-            <div class="t-out">&nbsp;&nbsp;"formation": <span class="t-val">"BTS SIO SLAM"</span>,</div>
-            <div class="t-out">&nbsp;&nbsp;"année": <span class="t-val">"1ère année"</span>,</div>
-            <div class="t-out">&nbsp;&nbsp;"école": <span class="t-val">"H3 HITEMA"</span>,</div>
-            <div class="t-out">&nbsp;&nbsp;"ville": <span class="t-val">"Paris, France"</span>,</div>
-            <div class="t-out">&nbsp;&nbsp;"passions": [</div>
-            <div class="t-out">&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-val">"supercars"</span>,</div>
-            <div class="t-out">&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-val">"gaming"</span>,</div>
-            <div class="t-out">&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-val">"dev"</span></div>
-            <div class="t-out">&nbsp;&nbsp;],</div>
-            <div class="t-out">&nbsp;&nbsp;"status": <span class="t-val">"disponible"</span></div>
-            <div class="t-out">&#125;</div>
-            <div class="t-line" style="margin-top:8px"><span class="t-prompt">$</span><span class="blink" style="color:var(--green)">_</span></div>
+        <div class="about-sep"></div>
+
+        <div class="about-col reveal">
+          <div class="info-list">
+            <div class="info-row">
+              <span class="info-key">Formation</span>
+              <span class="info-val">BTS SIO SLAM</span>
+            </div>
+            <div class="info-row">
+              <span class="info-key">Ecole</span>
+              <span class="info-val">H3 HITEMA, Paris</span>
+            </div>
+            <div class="info-row">
+              <span class="info-key">Année</span>
+              <span class="info-val">2025 — 2027</span>
+            </div>
+            <div class="info-row">
+              <span class="info-key">Diplôme précédent</span>
+              <span class="info-val">Bac Pro SN RISC</span>
+            </div>
+            <div class="info-row">
+              <span class="info-key">Localisation</span>
+              <span class="info-val">Île-de-France</span>
+            </div>
+            <div class="info-row">
+              <span class="info-key">Langues</span>
+              <span class="info-val">Français · Anglais B2</span>
+            </div>
+            <div class="info-row">
+              <span class="info-key">Disponibilité</span>
+              <span class="info-val available">Disponible</span>
+            </div>
           </div>
         </div>
       </div>
@@ -191,38 +335,16 @@
   </section>
 
   <footer>
-    <p class="footer-txt">© 2025–2026 <span>Florin Gabriel Popa</span></p>
-    <p class="footer-txt">BTS SIO SLAM · <span>H3 HITEMA</span></p>
+    <p class="footer-text">© 2025–2027 Gabriel Popa</p>
+    <p class="footer-text">BTS SIO SLAM · <span>H3 HITEMA</span></p>
   </footer>
 
 </div>
 <script>
-  // Matrix rain
-  (function(){
-    const c = document.getElementById('matrix-canvas');
-    if(!c) return;
-    const ctx = c.getContext('2d');
-    function resize(){ c.width=window.innerWidth; c.height=window.innerHeight; }
-    resize(); window.addEventListener('resize',resize);
-    const chars='01アイウエカキクサシスタチナニ∑∆∂∇';
-    const fs=13; let drops=[];
-    function init(){ drops=Array(Math.floor(c.width/fs)).fill(0); }
-    init(); window.addEventListener('resize',init);
-    setInterval(()=>{
-      ctx.fillStyle='rgba(2,12,2,0.05)';
-      ctx.fillRect(0,0,c.width,c.height);
-      for(let i=0;i<drops.length;i++){
-        ctx.fillStyle=Math.random()>.97?'#fff':'#00e544';
-        ctx.font=fs+'px monospace';
-        ctx.fillText(chars[Math.floor(Math.random()*chars.length)],i*fs,drops[i]*fs);
-        if(drops[i]*fs>c.height&&Math.random()>.975) drops[i]=0;
-        drops[i]++;
-      }
-    },55);
-  })();
-  // Reveal
-  const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}}),{threshold:.08});
-  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  const obs = new IntersectionObserver(e => e.forEach(x => {
+    if (x.isIntersecting) { x.target.classList.add('visible'); obs.unobserve(x.target); }
+  }), { threshold: .1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>
