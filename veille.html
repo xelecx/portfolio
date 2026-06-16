@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Veille — Gabriel Popa</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    #veille-page { border-bottom: 1px solid var(--border); }
+
+    /* Intro */
+    .veille-intro {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 2px solid var(--accent);
+      padding: 20px 24px;
+      margin-bottom: 48px;
+      font-size: .9rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .veille-intro strong { color: var(--text); font-weight: 500; }
+
+    /* Sujet header */
+    .veille-subject {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 28px 32px;
+      margin-bottom: 2px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+    }
+    .veille-subject-left { flex: 1; }
+    .veille-num {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      color: var(--dim);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .veille-topic {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      color: var(--white);
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+    .veille-topic em { font-style: italic; color: var(--muted); }
+    .veille-subtitle {
+      font-size: .88rem;
+      color: var(--muted);
+      font-weight: 300;
+    }
+    .veille-badge {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--dim);
+      border: 1px solid var(--border);
+      padding: 4px 12px;
+      background: var(--bg3);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* Stats row */
+    .veille-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-bottom: 2px;
+    }
+    .veille-stat {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 20px 24px;
+    }
+    .vs-num {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .vs-label {
+      font-size: .7rem;
+      font-weight: 500;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    /* Sections de contenu */
+    .veille-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-bottom: 2px;
+    }
+
+    .veille-block {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 28px 32px;
+      transition: border-color .25s;
+    }
+    .veille-block:hover { border-color: var(--border2); }
+    .veille-block.full { grid-column: 1 / -1; }
+
+    .vb-label {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .vb-title {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .vb-text {
+      font-size: .88rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .vb-text strong { color: var(--text); font-weight: 500; }
+
+    /* Liste à points */
+    .vb-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .vb-list li {
+      display: flex;
+      gap: 12px;
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .vb-list li::before {
+      content: '';
+      display: inline-block;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--border2);
+      flex-shrink: 0;
+      margin-top: 8px;
+    }
+    .vb-list li strong { color: var(--text); font-weight: 500; }
+    .vb-list li.pro::before { background: #6ee77f; }
+    .vb-list li.con::before { background: var(--border2); }
+
+    /* Impact perso */
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+    }
+    .impact-item {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      padding: 20px 22px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .impact-num {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      color: var(--accent);
+      line-height: 1;
+      flex-shrink: 0;
+      opacity: .5;
+    }
+    .impact-text {
+      font-size: .85rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .impact-text strong { color: var(--text); font-weight: 500; display: block; margin-bottom: 4px; }
+
+    /* Sources */
+    .sources-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .source-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: .82rem;
+      color: var(--muted);
+    }
+    .source-row:first-child { border-top: 1px solid var(--border); }
+    .source-dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--border2);
+      flex-shrink: 0;
+    }
+
+    /* Conclusion */
+    .veille-conclusion {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 36px 40px;
+      margin-top: 2px;
+    }
+    .vc-title {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .vc-title em { font-style: italic; color: var(--muted); }
+    .vc-text {
+      font-size: .92rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.85;
+      max-width: 680px;
+    }
+    .vc-text strong { color: var(--text); font-weight: 500; }
+
+    @media (max-width: 700px) {
+      .veille-stats { grid-template-columns: 1fr; }
+      .veille-grid { grid-template-columns: 1fr; }
+      .veille-block.full { grid-column: 1; }
+      .impact-grid { grid-template-columns: 1fr; }
+      .veille-subject { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <nav>
+    <a href="index.html" class="nav-logo">Gabriel <span>Popa</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="experience.html">Expérience</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="projects.html">Projets</a></li>
+      <li><a href="veille.html" class="active">Veille</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-dot"></div>
+  </nav>
+
+  <section id="veille-page">
+    <div class="section-wrap">
+
+      <div class="section-eyebrow reveal">
+        <span class="section-num">05</span>
+        <h2 class="section-title">Veille technologique</h2>
+        <div class="eyebrow-line"></div>
+      </div>
+
+      <div class="veille-intro reveal">
+        <strong>Objectif :</strong> La veille technologique consiste à surveiller l'évolution des
+        technologies, des outils et des pratiques liés à mon domaine — le développement web et logiciel.
+        Elle me permet de rester informé des nouvelles tendances et d'anticiper les changements du secteur.
+      </div>
+
+      <!-- En-tête du sujet -->
+      <div class="veille-subject reveal">
+        <div class="veille-subject-left">
+          <div class="veille-num">Sujet 01</div>
+          <div class="veille-topic">GitHub <em>—</em></div>
+          <div class="veille-subtitle">De l'hébergement de code à la plateforme des développeurs</div>
+        </div>
+        <div class="veille-badge">BTS SIO SLAM · 2025/2026</div>
+      </div>
+
+      <!-- Stats -->
+      <div class="veille-stats reveal">
+        <div class="veille-stat">
+          <div class="vs-num">2008</div>
+          <div class="vs-label">Année de création</div>
+        </div>
+        <div class="veille-stat">
+          <div class="vs-num">100M+</div>
+          <div class="vs-label">Développeurs actifs</div>
+        </div>
+        <div class="veille-stat">
+          <div class="vs-num">7,5 Md$</div>
+          <div class="vs-label">Acquisition Microsoft (2018)</div>
+        </div>
+      </div>
+
+      <!-- Contenu -->
+      <div class="veille-grid">
+
+        <div class="veille-block reveal">
+          <div class="vb-label">Qu'est-ce que GitHub ?</div>
+          <p class="vb-text">
+            Fondée en <strong>2008</strong>, GitHub est la plateforme de développement collaboratif
+            la plus utilisée au monde. Rachetée par <strong>Microsoft en 2018</strong> pour 7,5 milliards
+            de dollars, elle est devenue bien plus qu'un simple hébergeur de code : c'est
+            l'environnement de travail central de millions de développeurs.
+          </p>
+        </div>
+
+        <div class="veille-block reveal">
+          <div class="vb-label">Fonctionnalités clés</div>
+          <ul class="vb-list">
+            <li><strong>Hébergement de code</strong> — dépôts publics et privés, gestion des versions avec Git, collaboration en équipe.</li>
+            <li><strong>GitHub Actions</strong> — automatisation des tests et du déploiement depuis le dépôt, sans serveur externe.</li>
+            <li><strong>GitHub Pages</strong> — hébergement de sites web statiques gratuit. J'utilise cela pour mon portfolio.</li>
+            <li><strong>GitHub Copilot</strong> — assistant IA intégré à l'éditeur qui suggère du code en temps réel.</li>
+          </ul>
+        </div>
+
+        <div class="veille-block full reveal">
+          <div class="vb-label">Focus — GitHub Copilot</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;">
+            <div>
+              <div class="vb-title">L'IA dans votre éditeur</div>
+              <p class="vb-text">
+                Lancé en <strong>2022</strong>, Copilot analyse votre code en temps réel et propose des
+                suggestions basées sur des milliards de lignes de code public.
+                Il est <strong>gratuit pour les étudiants</strong> via GitHub Education.
+              </p>
+              <ul class="vb-list" style="margin-top:16px;">
+                <li class="pro">Suggestions de code en temps réel</li>
+                <li class="pro">Complétion automatique de fonctions</li>
+                <li class="pro">Explique du code existant</li>
+                <li class="pro">Génère des tests unitaires</li>
+              </ul>
+            </div>
+            <div>
+              <div class="vb-title">Les limites</div>
+              <ul class="vb-list" style="margin-top:0;">
+                <li class="con">Peut suggérer du code incorrect</li>
+                <li class="con">Il faut comprendre ce qu'on accepte</li>
+                <li class="con">Débat ouvert sur le droit d'auteur</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Impact perso -->
+      <div class="veille-block reveal" style="margin-top:2px;margin-bottom:2px;">
+        <div class="vb-label">Impact pour un développeur SLAM</div>
+        <div class="impact-grid">
+          <div class="impact-item">
+            <div class="impact-num">01</div>
+            <div class="impact-text">
+              <strong>Standard en entreprise</strong>
+              Git et GitHub sont attendus dès le premier stage. Le versionnement est une compétence de base pour tout développeur.
+            </div>
+          </div>
+          <div class="impact-item">
+            <div class="impact-num">02</div>
+            <div class="impact-text">
+              <strong>Stage AskWe</strong>
+              J'ai utilisé GitHub pour versionner le code du projet et GitHub Pages pour le déploiement — un outil utilisé en conditions réelles.
+            </div>
+          </div>
+          <div class="impact-item">
+            <div class="impact-num">03</div>
+            <div class="impact-text">
+              <strong>Mon portfolio sur GitHub Pages</strong>
+              xelecx.github.io — hébergé gratuitement, déployé en quelques secondes depuis le dépôt.
+            </div>
+          </div>
+          <div class="impact-item">
+            <div class="impact-num">04</div>
+            <div class="impact-text">
+              <strong>L'IA redéfinit l'apprentissage</strong>
+              Copilot change la façon d'apprendre à coder. Il faut lire, comprendre et valider le code — pas seulement le générer.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Conclusion -->
+      <div class="veille-conclusion reveal">
+        <div class="vc-title">GitHub est devenu <em>indispensable.</em></div>
+        <p class="vc-text">
+          Avec Copilot, la plateforme anticipe ce que sera le métier de développeur demain —
+          plus assisté, mais qui exige toujours une <strong>vraie compréhension du code</strong>.
+          Savoir utiliser GitHub, c'est aujourd'hui une compétence attendue dès le premier stage.
+        </p>
+      </div>
+
+      <!-- Sources -->
+      <div class="veille-block reveal" style="margin-top:2px;">
+        <div class="vb-label">Sources</div>
+        <div class="sources-list">
+          <div class="source-row"><div class="source-dot"></div>github.com — Site officiel</div>
+          <div class="source-row"><div class="source-dot"></div>docs.github.com/fr/copilot — Documentation Copilot</div>
+          <div class="source-row"><div class="source-dot"></div>github.blog — Annonces officielles</div>
+          <div class="source-row"><div class="source-dot"></div>docs.github.com/fr/actions — GitHub Actions</div>
+          <div class="source-row"><div class="source-dot"></div>resources.github.com/research — Études d'impact</div>
+          <div class="source-row"><div class="source-dot"></div>lemondeinformatique.fr — Rachat Microsoft 2018</div>
+          <div class="source-row"><div class="source-dot"></div>The Verge, 2018 — Acquisition par Microsoft</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <p class="footer-text">© 2025–2027 Gabriel Popa</p>
+    <p class="footer-text">BTS SIO SLAM · <span>H3 HITEMA</span></p>
+  </footer>
+
+</div>
+<script>
+  const obs = new IntersectionObserver(e => e.forEach(x => {
+    if (x.isIntersecting) { x.target.classList.add('visible'); obs.unobserve(x.target); }
+  }), { threshold: .08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
