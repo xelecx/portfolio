@@ -3,71 +3,94 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Expérience — Florin Gabriel Popa</title>
+  <title>Expérience — Gabriel Popa</title>
   <link rel="stylesheet" href="style.css"/>
   <style>
-    .exp-grid { display:flex; flex-direction:column; gap:2px; }
+    #exp-page { background: var(--bg); border-bottom: 1px solid var(--border); }
+
+    .exp-list { display: flex; flex-direction: column; gap: 2px; }
 
     .exp-card {
-      background:var(--card); border:1px solid var(--border);
-      padding:34px 38px; position:relative; overflow:hidden;
-      transition:border-color .3s, box-shadow .3s;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 36px 40px;
+      position: relative;
+      transition: border-color .25s;
     }
+    .exp-card:hover { border-color: var(--border2); }
+
     .exp-card::before {
-      content:''; position:absolute; top:0; left:0;
-      width:3px; height:0; background:var(--green);
-      transition:height .4s ease;
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: transparent;
+      transition: background .3s;
     }
-    .exp-card:hover::before { height:100%; }
-    .exp-card:hover { border-color:var(--green-dim); box-shadow:0 0 24px var(--green-glow2); }
+    .exp-card:hover::before { background: var(--accent); }
 
     .exp-top {
-      display:flex; justify-content:space-between;
-      align-items:flex-start; margin-bottom:18px; gap:16px;
-    }
-    .exp-company {
-      font-family:var(--display); font-size:1rem;
-      letter-spacing:3px; color:var(--green);
-      text-shadow:0 0 12px var(--green-glow);
-    }
-    .exp-role { font-size:1.1rem; font-weight:600; color:var(--text); margin-top:5px; }
-    .exp-badge {
-      font-family:var(--mono); font-size:.62rem; letter-spacing:2px;
-      padding:4px 12px; border:1px solid var(--green-pale);
-      color:var(--green-dim); text-transform:uppercase; white-space:nowrap;
-      flex-shrink:0;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      gap: 20px;
     }
 
-    .exp-tasks { list-style:none; display:flex; flex-direction:column; gap:9px; }
+    .exp-company {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .exp-role {
+      font-size: .88rem;
+      font-weight: 400;
+      color: var(--muted);
+    }
+    .exp-badge {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--dim);
+      border: 1px solid var(--border);
+      padding: 4px 12px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      background: var(--bg3);
+    }
+
+    .exp-tasks {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
     .exp-tasks li {
-      font-family:var(--mono); font-size:.8rem;
-      color:var(--text-muted); display:flex; gap:10px; line-height:1.6;
+      font-size: .88rem;
+      color: var(--muted);
+      display: flex;
+      gap: 12px;
+      line-height: 1.65;
     }
     .exp-tasks li::before {
-      content:'▶'; color:var(--green-dim); font-size:.5rem;
-      margin-top:4px; flex-shrink:0;
+      content: '';
+      display: inline-block;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--border2);
+      flex-shrink: 0;
+      margin-top: 8px;
     }
-    .exp-tasks li strong { color:var(--text); font-weight:600; }
+    .exp-tasks li strong { color: var(--text); font-weight: 500; }
 
-    .exp-stack { display:flex; gap:7px; flex-wrap:wrap; margin-top:18px; }
+    .exp-stack { display: flex; gap: 6px; flex-wrap: wrap; }
 
-    /* Frise chronologique côté gauche */
-    .timeline-wrap { position:relative; padding-left:28px; }
-    .timeline-wrap::before {
-      content:''; position:absolute; left:0; top:0; bottom:0;
-      width:1px; background:linear-gradient(to bottom,var(--green-dim),transparent);
-    }
-    .timeline-dot {
-      position:absolute; left:-5px; top:38px;
-      width:10px; height:10px; border-radius:50%;
-      background:var(--green); box-shadow:0 0 8px var(--green);
-    }
-    .timeline-item { position:relative; margin-bottom:2px; }
-
-    @media(max-width:700px){
-      .exp-top { flex-direction:column; gap:10px; }
-      .exp-card { padding:24px 22px; }
-      .timeline-wrap { padding-left:16px; }
+    @media (max-width: 700px) {
+      .exp-top { flex-direction: column; gap: 10px; }
+      .exp-card { padding: 24px 20px; }
     }
   </style>
 </head>
@@ -75,36 +98,36 @@
 <div class="page">
 
   <nav>
-    <a href="index.html" class="nav-logo">FGP<span class="slash">/</span>DEV</a>
+    <a href="index.html" class="nav-logo">Gabriel <span>Popa</span></a>
     <ul class="nav-links">
-      <li><a href="index.html">accueil</a></li>
-      <li><a href="experience.html" class="active">expérience</a></li>
-      <li><a href="skills.html">skills</a></li>
-      <li><a href="projects.html">projets</a></li>
-      <li><a href="contact.html">contact</a></li>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="experience.html" class="active">Expérience</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="projects.html">Projets</a></li>
+      <li><a href="veille.html">Veille</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
-    <div class="nav-status"><div class="status-dot"></div>DISPONIBLE</div>
+    <div class="nav-dot"></div>
   </nav>
 
-  <div class="section-wrap">
-    <div class="section-header reveal">
-      <span class="section-num">[ 02 ]</span>
-      <h2 class="section-title">EXPÉRIENCE</h2>
-      <div class="section-line"></div>
-    </div>
+  <section id="exp-page">
+    <div class="section-wrap">
+      <div class="section-eyebrow reveal">
+        <span class="section-num">02</span>
+        <h2 class="section-title">Expérience</h2>
+        <div class="eyebrow-line"></div>
+      </div>
 
-    <div class="timeline-wrap">
+      <div class="exp-list">
 
-      <!-- AskWe -->
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
+        <!-- AskWe -->
         <div class="exp-card reveal">
           <div class="exp-top">
             <div>
-              <div class="exp-company">ASKWE</div>
-              <div class="exp-role">Développeur Stagiaire</div>
+              <div class="exp-company">AskWe</div>
+              <div class="exp-role">Développeur stagiaire</div>
             </div>
-            <div class="exp-badge">STAGE · 2025</div>
+            <div class="exp-badge">Stage · 2025</div>
           </div>
           <ul class="exp-tasks">
             <li>Hébergement et déploiement d'un site web sur serveur <strong>Ionos</strong> — configuration DNS, mise en production, tests en ligne</li>
@@ -112,56 +135,76 @@
             <li>Collaboration dans un environnement de développement professionnel en équipe</li>
           </ul>
           <div class="exp-stack">
-            <span class="stack-pill">Ionos</span>
-            <span class="stack-pill">Hébergement web</span>
-            <span class="stack-pill">DNS</span>
-            <span class="stack-pill">App mobile</span>
-            <span class="stack-pill">Déploiement</span>
+            <span class="pill">Ionos</span>
+            <span class="pill">Hébergement web</span>
+            <span class="pill">DNS</span>
+            <span class="pill">App mobile</span>
+            <span class="pill">Déploiement</span>
           </div>
         </div>
-      </div>
 
-      <!-- H3 HITEMA -->
-      <div class="timeline-item">
-        <div class="timeline-dot" style="top:auto;bottom:38px;background:var(--green-dim);box-shadow:0 0 6px var(--green-dim);"></div>
+        <!-- H3 HITEMA -->
         <div class="exp-card reveal">
           <div class="exp-top">
             <div>
               <div class="exp-company">H3 HITEMA</div>
-              <div class="exp-role">Étudiant BTS SIO SLAM — 1ère année</div>
+              <div class="exp-role">Etudiant BTS SIO SLAM — 1re année</div>
             </div>
-            <div class="exp-badge">EN COURS · 2025–2026</div>
+            <div class="exp-badge">En cours · 2025–2027</div>
           </div>
           <ul class="exp-tasks">
             <li>Développement web front-end : <strong>HTML, CSS, JavaScript</strong></li>
             <li>Initiation au back-end : <strong>PHP</strong> et bases de données <strong>SQL/MySQL</strong></li>
             <li>Programmation orientée objet avec <strong>Java</strong></li>
-            <li>Versionnement de code avec <strong>Git & GitHub</strong></li>
+            <li>Versionnement de code avec <strong>Git et GitHub</strong></li>
             <li>Projets pratiques en équipe et gestion de projet informatique</li>
           </ul>
           <div class="exp-stack">
-            <span class="stack-pill">HTML / CSS</span>
-            <span class="stack-pill">JavaScript</span>
-            <span class="stack-pill">PHP</span>
-            <span class="stack-pill">SQL</span>
-            <span class="stack-pill">Java</span>
-            <span class="stack-pill">Git</span>
+            <span class="pill">HTML / CSS</span>
+            <span class="pill">JavaScript</span>
+            <span class="pill">PHP</span>
+            <span class="pill">SQL</span>
+            <span class="pill">Java</span>
+            <span class="pill">Git</span>
           </div>
         </div>
-      </div>
 
+        <!-- Bac Pro -->
+        <div class="exp-card reveal">
+          <div class="exp-top">
+            <div>
+              <div class="exp-company">Bac Pro SN option RISC</div>
+              <div class="exp-role">Réseaux Informatiques et Systèmes Communicants</div>
+            </div>
+            <div class="exp-badge">Obtenu · 2025</div>
+          </div>
+          <ul class="exp-tasks">
+            <li>Déploiement et configuration de réseaux informatiques</li>
+            <li>Maintenance de systèmes et équipements communicants</li>
+            <li>Stages en entreprise sur des missions réseau et systèmes</li>
+          </ul>
+          <div class="exp-stack">
+            <span class="pill">Réseaux</span>
+            <span class="pill">Systèmes</span>
+            <span class="pill">Infrastructure</span>
+          </div>
+        </div>
+
+      </div>
     </div>
-  </div>
+  </section>
 
   <footer>
-    <p class="footer-txt">© 2025–2026 <span>Florin Gabriel Popa</span></p>
-    <p class="footer-txt">BTS SIO SLAM · <span>H3 HITEMA</span></p>
+    <p class="footer-text">© 2025–2027 Gabriel Popa</p>
+    <p class="footer-text">BTS SIO SLAM · <span>H3 HITEMA</span></p>
   </footer>
 
 </div>
 <script>
-  const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}}),{threshold:.08});
-  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  const obs = new IntersectionObserver(e => e.forEach(x => {
+    if (x.isIntersecting) { x.target.classList.add('visible'); obs.unobserve(x.target); }
+  }), { threshold: .08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>
