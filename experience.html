@@ -1,1 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Expérience — Gabriel Popa</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    #exp-page { background: var(--bg); border-bottom: 1px solid var(--border); }
 
+    .exp-list { display: flex; flex-direction: column; gap: 2px; }
+
+    .exp-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 36px 40px;
+      position: relative;
+      transition: border-color .25s;
+    }
+    .exp-card:hover { border-color: var(--border2); }
+
+    .exp-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: transparent;
+      transition: background .3s;
+    }
+    .exp-card:hover::before { background: var(--accent); }
+
+    .exp-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      gap: 20px;
+    }
+
+    .exp-company {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .exp-role {
+      font-size: .88rem;
+      font-weight: 400;
+      color: var(--muted);
+    }
+    .exp-badge {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--dim);
+      border: 1px solid var(--border);
+      padding: 4px 12px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      background: var(--bg3);
+    }
+
+    .exp-tasks {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .exp-tasks li {
+      font-size: .88rem;
+      color: var(--muted);
+      display: flex;
+      gap: 12px;
+      line-height: 1.65;
+    }
+    .exp-tasks li::before {
+      content: '';
+      display: inline-block;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--border2);
+      flex-shrink: 0;
+      margin-top: 8px;
+    }
+    .exp-tasks li strong { color: var(--text); font-weight: 500; }
+
+    .exp-stack { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    @media (max-width: 700px) {
+      .exp-top { flex-direction: column; gap: 10px; }
+      .exp-card { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <nav>
+    <a href="index.html" class="nav-logo">Gabriel <span>Popa</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="experience.html" class="active">Expérience</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="projects.html">Projets</a></li>
+      <li><a href="veille.html">Veille</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-dot"></div>
+  </nav>
+
+  <section id="exp-page">
+    <div class="section-wrap">
+      <div class="section-eyebrow reveal">
+        <span class="section-num">02</span>
+        <h2 class="section-title">Expérience</h2>
+        <div class="eyebrow-line"></div>
+      </div>
+
+      <div class="exp-list">
+
+        <!-- AskWe -->
+        <div class="exp-card reveal">
+          <div class="exp-top">
+            <div>
+              <div class="exp-company">AskWe</div>
+              <div class="exp-role">Développeur stagiaire</div>
+            </div>
+            <div class="exp-badge">Stage · 2025</div>
+          </div>
+          <ul class="exp-tasks">
+            <li>Hébergement et déploiement d'un site web sur serveur <strong>Ionos</strong> — configuration DNS, mise en production, tests en ligne</li>
+            <li>Participation au développement de l'<strong>application mobile AskWe</strong> — travail sur les fonctionnalités et l'interface</li>
+            <li>Collaboration dans un environnement de développement professionnel en équipe</li>
+          </ul>
+          <div class="exp-stack">
+            <span class="pill">Ionos</span>
+            <span class="pill">Hébergement web</span>
+            <span class="pill">DNS</span>
+            <span class="pill">App mobile</span>
+            <span class="pill">Déploiement</span>
+          </div>
+        </div>
+
+        <!-- H3 HITEMA -->
+        <div class="exp-card reveal">
+          <div class="exp-top">
+            <div>
+              <div class="exp-company">H3 HITEMA</div>
+              <div class="exp-role">Etudiant BTS SIO SLAM — 1re année</div>
+            </div>
+            <div class="exp-badge">En cours · 2025–2027</div>
+          </div>
+          <ul class="exp-tasks">
+            <li>Développement web front-end : <strong>HTML, CSS, JavaScript</strong></li>
+            <li>Initiation au back-end : <strong>PHP</strong> et bases de données <strong>SQL/MySQL</strong></li>
+            <li>Programmation orientée objet avec <strong>Java</strong></li>
+            <li>Versionnement de code avec <strong>Git et GitHub</strong></li>
+            <li>Projets pratiques en équipe et gestion de projet informatique</li>
+          </ul>
+          <div class="exp-stack">
+            <span class="pill">HTML / CSS</span>
+            <span class="pill">JavaScript</span>
+            <span class="pill">PHP</span>
+            <span class="pill">SQL</span>
+            <span class="pill">Java</span>
+            <span class="pill">Git</span>
+          </div>
+        </div>
+
+        <!-- Bac Pro -->
+        <div class="exp-card reveal">
+          <div class="exp-top">
+            <div>
+              <div class="exp-company">Bac Pro SN option RISC</div>
+              <div class="exp-role">Réseaux Informatiques et Systèmes Communicants</div>
+            </div>
+            <div class="exp-badge">Obtenu · 2025</div>
+          </div>
+          <ul class="exp-tasks">
+            <li>Déploiement et configuration de réseaux informatiques</li>
+            <li>Maintenance de systèmes et équipements communicants</li>
+            <li>Stages en entreprise sur des missions réseau et systèmes</li>
+          </ul>
+          <div class="exp-stack">
+            <span class="pill">Réseaux</span>
+            <span class="pill">Systèmes</span>
+            <span class="pill">Infrastructure</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="footer-text">© 2025–2027 Gabriel Popa</p>
+    <p class="footer-text">BTS SIO SLAM · <span>H3 HITEMA</span></p>
+  </footer>
+
+</div>
+<script>
+  const obs = new IntersectionObserver(e => e.forEach(x => {
+    if (x.isIntersecting) { x.target.classList.add('visible'); obs.unobserve(x.target); }
+  }), { threshold: .08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
